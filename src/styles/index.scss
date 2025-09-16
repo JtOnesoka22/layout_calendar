@@ -1,3 +1,47 @@
-body {
-  margin: 0;
+$day-size: 100px;
+$day-gap: 1px;
+
+.calendar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $day-gap;
+  padding: 10px;
+  width: calc(($day-size + $day-gap) * 7 - $day-gap + 20px);
+  background-color: #fff;
+  margin: 70px auto;
+
+  &__days {
+    width: $day-size;
+    height: $day-size;
+    background-color: #eee;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    transition:
+      transform 0.5s,
+      background-color 0.5s;
+
+    &:first-child {
+      margin-left: $day-size * 6 + $day-gap * 18;
+    }
+
+    &::before {
+      font-family: Arial, sans-serif;
+      font-size: 30px;
+    }
+
+    &:hover {
+      cursor: pointer;
+      background-color: #ffbfcb;
+      transform: translateY(-20px);
+    }
+  }
+}
+
+@for $i from 1 through 31 {
+  .calendar__days:nth-child(#{$i})::before {
+    content: '#{$i}';
+  }
 }

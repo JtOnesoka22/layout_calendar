@@ -3,6 +3,10 @@ $day-gap: 1px;
 $days-in-week: 7;
 $start-days: (mon, tue, wed, thu, fri, sat, sun);
 $index: 0;
+$border-width: 1px;
+$transition-duration: 0.5s;
+$hover-shift: -20px;
+$hover-bg: #ffbfcb;
 
 html,
 body {
@@ -22,20 +26,20 @@ body {
   padding: 10px;
   width: calc(($day-size + $day-gap) * 7 - $day-gap + 20px);
   background-color: #fff;
-  margin: 0 auto;
 
   &__day {
     width: $day-size;
     height: $day-size;
     background-color: #eee;
-    border: 1px solid black;
+    border: $border-width solid black;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
+    box-sizing: border-box;
     transition:
-      transform 0.5s,
-      background-color 0.5s;
+      transform $transition-duration,
+      background-color $transition-duration;
 
     &::before {
       font-family: Arial, sans-serif;
@@ -44,8 +48,8 @@ body {
 
     &:hover {
       cursor: pointer;
-      background-color: #ffbfcb;
-      transform: translateY(-20px);
+      background-color: $hover-bg;
+      transform: translateY($hover-shift);
     }
   }
 }
@@ -64,10 +68,10 @@ body {
   }
 }
 
-@each $day, $i in (sun: 0, mon: 1, tue: 2, wed: 3, thu: 4, fri: 5, sat: 6) {
+@each $day, $i in (mon: 0, tue: 1, wed: 2, thu: 3, fri: 4, sat: 5, sun: 6) {
   .calendar--start-day-#{$day} {
     .calendar__day:first-child {
-      margin-left: ($day-size + $day-gap + 2) * $i;
+      margin-left: ($day-size + $day-gap) * $i;
     }
   }
 }
